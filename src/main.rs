@@ -1,7 +1,9 @@
+mod app;
+mod constants;
+mod ui;
+
 use crossterm::{
-    event::{
-        self, DisableMouseCapture, EnableMouseCapture, Event, KeyCode, KeyEvent, KeyEventKind,
-    },
+    event::{self, DisableMouseCapture, EnableMouseCapture, Event, KeyCode, KeyEventKind},
     execute,
     terminal::disable_raw_mode,
 };
@@ -10,10 +12,6 @@ use ratatui::{
     Terminal,
 };
 use std::{error::Error, io};
-
-mod app;
-mod constants;
-mod ui;
 
 use crate::ui::*;
 
@@ -29,7 +27,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut terminal = Terminal::new(backend).unwrap();
 
     let mut app = App::new();
-    run_app(&mut terminal, &mut app);
+    let _ = run_app(&mut terminal, &mut app);
 
     disable_raw_mode().unwrap();
     execute!(

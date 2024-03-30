@@ -86,20 +86,20 @@ pub fn ui(f: &mut Frame, app: &App) {
         .title(Title::from("| Content |").alignment(Alignment::Center));
 
     if let Some(editing) = &app.currently_editing {
-        let popup_block = Block::default()
-            .title("Enter a new key-value pair")
-            .borders(Borders::NONE)
-            .style(Style::default().bg(Color::DarkGray));
+        // let popup_block = Block::default()
+        //     .title("Enter a new key-value pair")
+        //     .borders(Borders::NONE)
+        //     .style(Style::default().bg(Color::DarkGray));
 
-        let area = centered_rect(60, 25, f.size());
+        // let area = centered_rect(60, 25, f.size());
         // f.render_widget(popup_block, area);
 
-        let popup_chunks = Layout::default()
-            .direction(Direction::Horizontal)
-            .constraints([Constraint::Percentage(50), Constraint::Percentage(50)])
-            .split(area);
+        // let popup_chunks = Layout::default()
+        //     .direction(Direction::Horizontal)
+        //     .constraints([Constraint::Percentage(50), Constraint::Percentage(50)])
+        //     .split(area);
 
-        let value_block = Block::default().title("Value").borders(Borders::ALL);
+        // let value_block = Block::default().title("Value").borders(Borders::ALL);
 
         match editing {
             CurrentlyEditing::URL => footer_block = footer_block.style(active_style),

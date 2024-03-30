@@ -1,7 +1,6 @@
 use std::{collections::HashMap, str::from_utf8};
 
 use curl::easy::Easy;
-use serde_json::{json, Value};
 
 pub enum CurrentScreen {
     Main,
