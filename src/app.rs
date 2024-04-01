@@ -10,7 +10,7 @@ pub enum CurrentScreen {
 }
 
 pub enum CurrentlyEditing {
-    URL,
+    Url,
 }
 
 pub struct App {
@@ -59,21 +59,30 @@ impl App {
                     Ok(data.len())
                 })
                 .unwrap();
-            transfer.perform().unwrap();
+            match transfer.perform() {
+                Ok(_) => (),
+                Err(err) => {
+                    let mut owned_string: String = self.url_input.clone().to_owned();
+
+                    owned_string.push_str(" - [Error]");
+                    self.requests.insert(owned_string, err.to_string());
+                }
+            }
         }
         let output = from_utf8(&dst).unwrap();
-
-        self.requests
-            .insert(self.url_input.clone(), String::from(output));
+        if output.len() > 1 {
+            self.requests
+                .insert(self.url_input.clone(), String::from(output));
+        }
     }
 
     pub fn toggle_editing(&mut self) {
         if let Some(edit_mode) = &self.currently_editing {
             match edit_mode {
-                CurrentlyEditing::URL => self.currently_editing = Some(CurrentlyEditing::URL),
+                CurrentlyEditing::Url => self.currently_editing = Some(CurrentlyEditing::Url),
             }
         } else {
-            self.currently_editing = Some(CurrentlyEditing::URL);
+            self.currently_editing = Some(CurrentlyEditing::Url);
         }
     }
 
@@ -85,7 +94,7 @@ impl App {
     pub fn on_press_enter(&mut self) {
         if let Some(editing) = &self.currently_editing {
             match editing {
-                CurrentlyEditing::URL => {
+                CurrentlyEditing::Url => {
                     self.save_request();
                     self.current_screen = CurrentScreen::Main;
                 }
@@ -108,7 +117,7 @@ impl App {
     pub fn on_press_backspace(&mut self) {
         if let Some(editing) = &self.currently_editing {
             match editing {
-                CurrentlyEditing::URL => {
+                CurrentlyEditing::Url => {
                     self.url_input.pop();
                 }
             }
@@ -126,7 +135,7 @@ impl App {
     pub fn on_char_press(&mut self, value: char) {
         if let Some(editing) = &self.currently_editing {
             match editing {
-                CurrentlyEditing::URL => self.url_input.push(value),
+                CurrentlyEditing::Url => self.url_input.push(value),
             }
         }
     }

@@ -53,7 +53,7 @@ fn run_app<B: Backend>(terminal: &mut Terminal<B>, app: &mut App) -> io::Result<
                 CurrentScreen::Main => match key.code {
                     KeyCode::Char('e') => {
                         app.current_screen = CurrentScreen::Editing;
-                        app.currently_editing = Some(CurrentlyEditing::URL);
+                        app.currently_editing = Some(CurrentlyEditing::Url);
                     }
                     KeyCode::Char('q') => {
                         app.current_screen = CurrentScreen::Exiting;
