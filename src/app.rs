@@ -38,6 +38,7 @@ impl App {
 
     pub fn save_request(&mut self) {
         self.do_request();
+        println!("Testing workflow");
 
         self.url_input = String::new();
         self.currently_editing = None;
